@@ -14,4 +14,21 @@ const MainPage = () => {
     )
 }
 
+const Task = (props) => (
+    <div>
+        <input
+            type="checkbox"
+            id={props.task.id}
+            checked={props.task.isDone}
+            readonly
+        />
+        {props.task.description}
+    </div>
+)
+
+const TaskList = (props) => {
+    if (!props.tasks?.length) return 'No tasks'
+    return props.tasks.map((task, idx) => <Task task={task} key={idx} />)
+}
+
 export default MainPage
