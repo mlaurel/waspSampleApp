@@ -1,12 +1,14 @@
-import React from 'react'
-import getTasks from '@wasp/queries/getTasks'
+import React, { useState } from 'react'
 import { useQuery } from '@wasp/queries'
+import getTasks from '@wasp/queries/getTasks'
+import createTask from '@wasp/actions/createTask'
 
 const MainPage = () => {
     const { data: tasks, isFetching, error } = useQuery(getTasks)
 
     return (
         <>
+            <AddTaskForm />
             {tasks && <TaskList tasks={tasks} />}
             {isFetching && 'Fetching...'}
             {error && `Error: ${error}`}
@@ -29,6 +31,32 @@ const Task = (props) => (
 const TaskList = (props) => {
     if (!props.tasks?.length) return 'No tasks'
     return props.tasks.map((task, idx) => <Task task={task} key={idx} />)
+}
+
+const AddTaskForm = (props) => {
+    const defaultDescription = ''
+    const [description, setDescription] = useState(defaultDescription)
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        try {
+            await createTask({ description })
+            setDescription(defaultDescription)
+        } catch (err) {
+            window.alert('Error: ' + err.message)
+        }
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
+            <input type="submit" value="Create task" />
+        </form>
+    )
 }
 
 export default MainPage
