@@ -22,3 +22,8 @@ query getTasks {
   // automatically refresh the results of this query when tasks change.
   entities: [Task]
 }
+
+action createTask {
+  fn: import { createTask } from "@ext/actions.js",
+  entities: [Task]
+}

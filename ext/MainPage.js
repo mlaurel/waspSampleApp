@@ -20,7 +20,7 @@ const Task = (props) => (
             type="checkbox"
             id={props.task.id}
             checked={props.task.isDone}
-            readonly
+            readOnly
         />
         {props.task.description}
     </div>
