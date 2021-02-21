@@ -4,7 +4,7 @@ export const createTask = async (args, context) => {
     })
 }
 
-export const updateTask = async (args, content) => {
+export const updateTask = async (args, context) => {
     return context.entities.Task.update({
         where: { id: args.taskId },
         data: {

@@ -29,6 +29,6 @@ action createTask {
 }
 
 action updateTask {
-    fn: import { updateTask } from "@ext/actions.js"
+    fn: import { updateTask } from "@ext/actions.js",
     entities: [Task]
 }
