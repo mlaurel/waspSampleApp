@@ -1,12 +1,17 @@
-import React from "react";
-import waspLogo from "./waspLogo.png";
-import "./Main.css";
+import React from 'react'
+import getTasks from '@wasp/queries/getTasks'
+import { useQuery } from '@wasp/queries'
 
 const MainPage = () => {
-  return (
-    <div className="container">
-      <main>wasp todo</main>
-    </div>
-  );
-};
-export default MainPage;
+    const { data: tasks, isFetching, error } = useQuery(getTasks)
+
+    return (
+        <>
+            {tasks && <TaskList tasks={tasks} />}
+            {isFetching && 'Fetching...'}
+            {error && `Error: ${error}`}
+        </>
+    )
+}
+
+export default MainPage
